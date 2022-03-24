@@ -3,7 +3,7 @@ import reportWebVitals from './reportWebVitals';
 import ReactDOM from 'react-dom';
 import React from 'react';
 import CustomFrom from './pages/customForm';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import './index.css';
 import Demo from './pages/Demo';
 
