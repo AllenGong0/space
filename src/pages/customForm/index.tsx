@@ -1,6 +1,6 @@
 import FormRender, { useForm } from 'form-render';
 import { useEffect, useRef, useState } from 'react';
-import CustomArray from '../../components/customArray';
+import ImmutableList from '../../components/ImmutableList';
 import CustomInput from '../../components/customInput';
 
 const schema = {
@@ -64,7 +64,7 @@ const CustomFrom = () => {
     //   },
     // }
     return <div>
-        <FormRender form={form} schema={schema as any} widgets={{customArray: CustomArray, customInput: CustomInput}} />
+        <FormRender form={form} schema={schema as any} widgets={{customArray: ImmutableList, customInput: CustomInput}} />
     </div>;
 }
 
