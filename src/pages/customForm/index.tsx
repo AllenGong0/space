@@ -50,7 +50,7 @@ const schema = {
   }
 
 
-const CustomFrom = () => {
+const CustomForm = () => {
     const form = useForm();
     // const defaultOptions = schema.properties.options.default
     // useEffect(()=>{
@@ -68,4 +68,4 @@ const CustomFrom = () => {
     </div>;
 }
 
-export default CustomFrom
+export default CustomForm

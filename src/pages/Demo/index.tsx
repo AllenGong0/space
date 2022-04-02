@@ -10,7 +10,6 @@ const CustomComA = props => {
   }
   return (
     <div>
-      my custom object:
       {props.children}
     </div>
   );
@@ -34,7 +33,6 @@ const schema = {
         },
         default: `new Array(3)`,
         "props": {
-          "hideAdd": "true"
         },
     },
   },
