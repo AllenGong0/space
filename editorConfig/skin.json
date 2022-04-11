@@ -1,0 +1,64 @@
+{
+  "skins": [
+    {
+      "id": "question1/series_question_entry_1",
+      "prefab": "question1/series_question_entry_1",
+      "name": "糖果世界（粉色系）",
+      "isSeries": true
+    },
+    {
+      "id": "question1/app01",
+      "prefab": "question1/app01",
+      "name": "糖果世界（粉色系）",
+      "isSeries": false
+    },
+    {
+      "id": "question2/app02",
+      "prefab": "question2/app02",
+      "name": "绿野寻踪（绿色系）",
+      "isSeries": false
+    },
+    {
+      "id": "question3/app03",
+      "prefab": "question3/app03",
+      "name": "玉门关外（黄色系）",
+      "isSeries": false
+    },
+    {
+      "id": "question2/series_question_entry_2",
+      "prefab": "question2/series_question_entry_2",
+      "name": "绿野寻踪（绿色系）",
+      "isSeries": true
+    },
+    {
+      "id": "question3/series_question_entry_3",
+      "prefab": "question3/series_question_entry_3",
+      "name": "玉门关外（黄色系）",
+      "isSeries": true
+    },
+    {
+      "id": "question4/app04",
+      "prefab": "question4/app04",
+      "name": "海底奇遇（蓝色系）",
+      "isSeries": false
+    },
+    {
+      "id": "question4/series_question_entry_4",
+      "prefab": "question4/series_question_entry_4",
+      "name": "海底奇遇（蓝色系）",
+      "isSeries": true
+    },
+    {
+      "id": "question5/app05",
+      "prefab": "question5/app05",
+      "name": "太空幻想（紫色系）",
+      "isSeries": false
+    },
+    {
+      "id": "question5/series_question_entry_5",
+      "prefab": "question5/series_question_entry_5",
+      "name": "太空幻想（紫色系）",
+      "isSeries": true
+    }
+  ]
+}

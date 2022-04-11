@@ -1,0 +1,8 @@
+{
+    "config":"config.json",
+    "contentSchema":"contentSchema.json",
+    "seriesQuestion": "contentSchemaSeries.json",
+    "subSchema": "contentSubSchema.json",
+    "skins":"skin.json",
+    "bgm":"bgm.json"
+}
