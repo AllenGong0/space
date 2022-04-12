@@ -1,10 +1,16 @@
 const fs = require('fs-extra')
 const path = require('path')
-const { cloneDeep } = require('lodash')
 const editorPath = 'editorConfig'
 const indexInfo = fs.readJSONSync(path.resolve(__dirname, editorPath, 'index.json'))
-const { contentSchema } = indexInfo
-const schema = fs.readJSONSync(path.resolve(__dirname, editorPath, contentSchema))
+const { contentSchema, subSchema, seriesQuestion } = indexInfo
+
+const contentSchemaPath = path.resolve(__dirname, editorPath, contentSchema)
+const subSchemaPath = path.resolve(__dirname, editorPath, subSchema)
+const seriesSchemaPath = path.resolve(__dirname, editorPath, seriesQuestion)
+
+const contentSchemaInfo = fs.readJSONSync(contentSchemaPath)
+const subSchemaInfo = fs.readJSONSync(subSchemaPath)
+const seriesSchemaInfo = fs.readJSONSync(seriesSchemaPath)
 
 /**
  *
@@ -34,7 +40,7 @@ const addHidden = (schema, nowKey = 'root', parentHiddenStr = undefined, parentM
         /** rootValue 更改为相应的 formData */
         const newKey = getRoot(key, parentMap)
         if(innerHiddenStr.includes('rootValue')){
-            innerHiddenStr = innerHiddenStr.replace('rootValue', newKey)
+            innerHiddenStr = innerHiddenStr.replaceAll('rootValue', newKey)
             console.log(innerHiddenStr, schema.title, key)
         }
     }
@@ -42,16 +48,21 @@ const addHidden = (schema, nowKey = 'root', parentHiddenStr = undefined, parentM
     /** 设置当前 schema 的 hidden 值  */
     let newHiddenStr = innerHiddenStr
     if(parentHiddenStr && newHiddenStr){
-        newHiddenStr = `${newHiddenStr} || ${parentHiddenStr}`
+        newHiddenStr = newHiddenStr.includes(parentHiddenStr) ? newHiddenStr : `${newHiddenStr} || ${parentHiddenStr}`
     }else if(parentHiddenStr){
         newHiddenStr = `${parentHiddenStr}`
     }
     newHiddenStr && (schema.hidden = `{{${newHiddenStr}}}`)
 
     /** 如果是对象或数组，将当前 hidden 传递下去 */
-    if(type === 'object' || type === 'array'){
-        // TODO 数组需单独处理
-        const { properties } = schema
+    let properties = {}
+    if(type === 'object'){
+        properties = schema.properties
+    }
+    if(type === 'array'){
+        properties = schema?.items?.properties
+    }
+    if(properties && Object.keys(properties).length){
         for(key in properties){
             parentMap.set(key, nowKey)
             addHidden(properties[key], key, newHiddenStr, parentMap)
@@ -73,6 +84,10 @@ function getRoot(key,map) {
     return newStr.reverse().join('.')
 }
 
-addHidden(schema.schema)
+addHidden(contentSchemaInfo.schema || contentSchemaInfo)
+subSchemaInfo && addHidden(subSchemaInfo)
+addHidden(seriesSchemaInfo.schema || seriesSchemaInfo)
 
-fs.writeFileSync(path.resolve(__dirname, editorPath, contentSchema), JSON.stringify(schema))
+fs.writeFileSync(contentSchemaPath, JSON.stringify(contentSchemaInfo))
+fs.writeFileSync(subSchemaPath, JSON.stringify(subSchemaInfo))
+fs.writeFileSync(seriesSchemaPath, JSON.stringify(seriesSchemaInfo))

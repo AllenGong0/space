@@ -11,16 +11,13 @@
         "enum": ["english", "math", "chinese"],
         "enumNames": ["英语", "数学", "语文"],
         "ui:widget": "radio",
-        "ui:hidden": "{{true}}",
-        "default": "english"
+        "default": "english",
+        "hidden": "{{true}}"
       },
-      "skins": {
-        "title": "主题"
-      },
+      "skins": { "title": "主题" },
       "label": {
         "title": "标签",
         "type": "string",
-        "ui:hidden": "{{rootValue.subject !== 'english'}}",
         "ui:options": {
           "multiLine": false,
           "heightLimit": 51,
@@ -29,7 +26,8 @@
           "fontSize": "{{40}}",
           "exceedMsg": "标签超出范围！！！"
         },
-        "ui:widget": "editor"
+        "ui:widget": "editor",
+        "hidden": "{{formData.subject !== 'english'}}"
       },
       "ifNeedTopic": {
         "title": "题干",
@@ -37,15 +35,13 @@
         "enum": ["true", "false"],
         "enumNames": ["有", "无"],
         "ui:widget": "radio",
-        "ui:hidden": "{{rootValue.subject === 'english'}}",
-        "default": "false"
+        "default": "false",
+        "hidden": "{{formData.subject === 'english'}}"
       },
       "topicInfo": {
-        "ui:hidden": "{{rootValue.ifNeedTopic === 'false'}}",
         "title": "题干信息",
         "type": "object",
         "required": ["content"],
-
         "properties": {
           "content": {
             "title": "题干内容",
@@ -59,16 +55,18 @@
               "exceedMsg": "题干文字超出文本框范围",
               "noTrim": true
             },
-            "ui:widget": "editor"
+            "ui:widget": "editor",
+            "hidden": "{{formData.ifNeedTopic === 'false'}}"
           },
           "topicVoice": {
             "title": "题干播报音频（选填）",
             "type": "string",
             "ui:widget": "audioUpload",
             "ui:options": {},
-            "ui:hidden": "{{formData.subject === 'english'}}"
+            "hidden": "{{formData.subject === 'english' || formData.ifNeedTopic === 'false'}}"
           }
-        }
+        },
+        "hidden": "{{formData.ifNeedTopic === 'false'}}"
       },
       "ifNeedInsertElement": {
         "title": "插入框",
@@ -81,24 +79,21 @@
       "insertElementInfo": {
         "title": "插入框信息",
         "type": "object",
-        "ui:hidden": "{{rootValue.ifNeedInsertElement === 'false'}}",
         "properties": {
           "insertElementType": {
             "title": "插入框类型",
             "type": "string",
             "ui:widget": "radio",
             "enum": ["0", "1"],
-            "enumNames": ["图片", "文字"]
+            "enumNames": ["图片", "文字"],
+            "hidden": "{{formData.ifNeedInsertElement === 'false'}}"
           },
           "image": {
             "title": "上传图片",
             "type": "string",
             "ui:widget": "imgUpload",
-            "ui:hidden": "{{rootValue.insertElementType === '1'}}",
-            "ui:options": {
-              "heightLimit": 170,
-              "widthLimit": 818
-            }
+            "ui:options": { "heightLimit": 170, "widthLimit": 818 },
+            "hidden": "{{formData.insertElementInfo.insertElementType === '1' || formData.ifNeedInsertElement === 'false'}}"
           },
           "fontSize": {
             "title": "字体大小",
@@ -106,31 +101,32 @@
             "enum": ["60", "80", "40"],
             "enumNames": ["标准", "偏大", "偏小"],
             "ui:widget": "radio",
-            "ui:hidden": "{{rootValue.insertElementType === '0'}}"
+            "hidden": "{{formData.insertElementInfo.insertElementType === '0' || formData.ifNeedInsertElement === 'false'}}"
           },
           "hAlgin": {
             "title": "对齐方式",
             "type": "string",
-            "ui:hidden": "{{rootValue.insertElementType === '0'}}",
             "enum": ["0", "1"],
             "enumNames": ["左对齐", "居中"],
             "ui:widget": "radio",
-            "default": "1"
+            "default": "1",
+            "hidden": "{{formData.insertElementInfo.insertElementType === '0' || formData.ifNeedInsertElement === 'false'}}"
           },
           "content": {
             "title": "文字内容",
             "type": "string",
             "ui:widget": "editor",
-            "ui:hidden": "{{rootValue.insertElementType === '0'}}",
             "ui:options": {
               "heightLimit": 170,
               "widthLimit": 822,
               "fontSize": "{{rootValue.fontSize}}",
               "checkFontSize": "insertElementInfo.fontSize",
               "exceedMsg": "插入框文字超出文本框范围"
-            }
+            },
+            "hidden": "{{formData.insertElementInfo.insertElementType === '0' || formData.ifNeedInsertElement === 'false'}}"
           }
-        }
+        },
+        "hidden": "{{formData.ifNeedInsertElement === 'false'}}"
       },
       "optionInfo": {
         "title": "选项信息",
@@ -142,8 +138,8 @@
             "enum": ["text", "image"],
             "enumNames": ["文字", "图片"],
             "ui:widget": "radio",
-            "ui:hidden": "{{true}}",
-            "default": "text"
+            "default": "text",
+            "hidden": "{{true}}"
           },
           "optionFontSize": {
             "title": "字号大小",
@@ -152,7 +148,7 @@
             "enumNames": ["标准", "偏大", "偏小"],
             "ui:widget": "radio",
             "default": "60",
-            "ui:hidden": "{{formData.optionInfo.optionType !== 'text'}}"
+            "hidden": "{{formData.optionInfo.optionType !== 'text'}}"
           },
           "optionCount": {
             "title": "选项个数",
@@ -172,7 +168,6 @@
                   "title": "选项文字",
                   "type": "string",
                   "required": true,
-                  "ui:hidden": "{{formData.optionInfo.optionType !== 'text'}}",
                   "ui:options": {
                     "multiLine": true,
                     "heightLimit": 121,
@@ -181,40 +176,26 @@
                     "checkFontSize": "optionInfo.optionFontSize",
                     "exceedMsg": "选项文字超出文本框范围"
                   },
-                  "ui:widget": "editor"
+                  "ui:widget": "editor",
+                  "hidden": "{{formData.optionInfo.optionType !== 'text' || formData.optionInfo.optionCount !== '3'}}"
                 },
                 "image": {
                   "title": "选项图片",
                   "type": "string",
                   "ui:widget": "imgUpload",
-                  "ui:hidden": "{{formData.optionInfo.optionType !== 'image'}}",
-                  "ui:options": {
-                    "widthLimit": 200,
-                    "heightLimit": 150
-                  }
+                  "ui:options": { "widthLimit": 200, "heightLimit": 150 },
+                  "hidden": "{{formData.optionInfo.optionType !== 'image' || formData.optionInfo.optionCount !== '3'}}"
                 }
               }
             },
-            "ui:options": {
-              "hideDelete": true,
-              "hideAdd": true
-            },
-            "ui:hidden": "{{rootValue.optionCount !== '3'}}",
+            "ui:options": { "hideDelete": true, "hideAdd": true },
             "ui:className": "fixLength",
             "default": [
-              {
-                "text": "",
-                "image": ""
-              },
-              {
-                "text": "",
-                "image": ""
-              },
-              {
-                "text": "",
-                "image": ""
-              }
-            ]
+              { "text": "", "image": "" },
+              { "text": "", "image": "" },
+              { "text": "", "image": "" }
+            ],
+            "hidden": "{{formData.optionInfo.optionCount !== '3'}}"
           },
           "optionList$2": {
             "title": "选项列表",
@@ -226,7 +207,6 @@
                   "required": true,
                   "title": "选项文字",
                   "type": "string",
-                  "ui:hidden": "{{formData.optionInfo.optionType !== 'text'}}",
                   "ui:options": {
                     "multiLine": true,
                     "heightLimit": 121,
@@ -235,36 +215,25 @@
                     "checkFontSize": "optionInfo.optionFontSize",
                     "exceedMsg": "选项文字超出文本框范围"
                   },
-                  "ui:widget": "editor"
+                  "ui:widget": "editor",
+                  "hidden": "{{formData.optionInfo.optionType !== 'text' || formData.optionInfo.optionCount !== '2'}}"
                 },
                 "image": {
                   "title": "选项图片",
                   "type": "string",
                   "ui:widget": "imgUpload",
-                  "ui:hidden": "{{formData.optionInfo.optionType !== 'image'}}",
-                  "ui:options": {
-                    "widthLimit": 200,
-                    "heightLimit": 150
-                  }
+                  "ui:options": { "widthLimit": 200, "heightLimit": 150 },
+                  "hidden": "{{formData.optionInfo.optionType !== 'image' || formData.optionInfo.optionCount !== '2'}}"
                 }
               }
             },
-            "ui:options": {
-              "hideDelete": true,
-              "hideAdd": true
-            },
-            "ui:hidden": "{{rootValue.optionCount !== '2'}}",
+            "ui:options": { "hideDelete": true, "hideAdd": true },
             "ui:className": "fixLength",
             "default": [
-              {
-                "text": "",
-                "image": ""
-              },
-              {
-                "text": "",
-                "image": ""
-              }
-            ]
+              { "text": "", "image": "" },
+              { "text": "", "image": "" }
+            ],
+            "hidden": "{{formData.optionInfo.optionCount !== '2'}}"
           }
         }
       },
@@ -273,13 +242,13 @@
         "type": "object",
         "properties": {
           "isAuxiliaryMode": {
-            "ui:hidden": "{{formData.subject !== 'math'}}",
             "title": "试错机会",
             "type": "string",
             "enum": ["false", "true"],
             "enumNames": ["0次", "无限次"],
             "ui:widget": "radio",
-            "default": "false"
+            "default": "false",
+            "hidden": "{{formData.subject !== 'math'}}"
           },
           "answer$3": {
             "title": "正确答案",
@@ -287,17 +256,17 @@
             "enum": ["1", "2", "3"],
             "enumNames": ["选项A", "选项B", "选项C"],
             "ui:widget": "radio",
-            "ui:hidden": "{{formData.optionInfo.optionCount === '2'}}",
-            "default": "1"
+            "default": "1",
+            "hidden": "{{formData.optionInfo.optionCount === '2'}}"
           },
           "answer$2": {
             "title": "正确答案",
             "type": "string",
-            "ui:hidden": "{{formData.optionInfo.optionCount === '3'}}",
             "enum": ["1", "2"],
             "enumNames": ["选项A", "选项B"],
             "ui:widget": "radio",
-            "default": "1"
+            "default": "1",
+            "hidden": "{{formData.optionInfo.optionCount === '3'}}"
           }
         }
       },
@@ -313,23 +282,24 @@
       "listenAudioInfo": {
         "title": "听力音频信息",
         "type": "object",
-        "ui:hidden": "{{rootValue.ifNeedListenAudio === 'false'}}",
         "required": ["audio"],
         "properties": {
           "audio": {
             "title": "音频上传",
             "type": "string",
             "ui:widget": "audioUpload",
-            "ui:options": {}
+            "ui:options": {},
+            "hidden": "{{formData.ifNeedListenAudio === 'false'}}"
           },
           "content": {
             "title": "听力音频内容",
             "type": "string",
             "format": "textarea",
             "ui:options": {},
-            "ui:hidden": "{{formData.subject !== 'english' || !rootValue.audio}}"
+            "hidden": "{{formData.subject !== 'english' || !formData.listenAudioInfo.audio || formData.ifNeedListenAudio === 'false'}}"
           }
-        }
+        },
+        "hidden": "{{formData.ifNeedListenAudio === 'false'}}"
       },
       "bgm": {
         "title": "背景音乐",
@@ -344,10 +314,8 @@
           "无"
         ],
         "default": "",
-        "ui:hidden": "{{rootValue.ifNeedListenAudio === 'true'}}",
-        "ui:options": {
-          "allowClear": true
-        }
+        "ui:options": { "allowClear": true },
+        "hidden": "{{formData.ifNeedListenAudio === 'true'}}"
       }
     }
   },
@@ -368,36 +336,18 @@
       "optionFontSize": "60",
       "optionCount": "3",
       "optionList$3": [
-        {
-          "text": "",
-          "image": ""
-        },
-        {
-          "text": "",
-          "image": ""
-        },
-        {
-          "text": "",
-          "image": ""
-        }
+        { "text": "", "image": "" },
+        { "text": "", "image": "" },
+        { "text": "", "image": "" }
       ],
       "optionList$2": [
-        {
-          "text": "",
-          "image": ""
-        },
-        {
-          "text": "",
-          "image": ""
-        }
+        { "text": "", "image": "" },
+        { "text": "", "image": "" }
       ]
     },
     "answer": "1",
     "ifNeedListenAudio": "false",
-    "listenAudioInfo": {
-      "audio": "",
-      "content": ""
-    },
+    "listenAudioInfo": { "audio": "", "content": "" },
     "bgm": ""
   }
 }

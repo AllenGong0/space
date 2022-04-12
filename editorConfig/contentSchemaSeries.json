@@ -11,12 +11,10 @@
         "enum": ["english", "math", "chinese"],
         "enumNames": ["英语", "数学", "语文"],
         "ui:widget": "radio",
-        "ui:hidden": "{{true}}",
-        "default": "english"
+        "default": "english",
+        "hidden": "{{true}}"
       },
-      "skins": {
-        "title": "主题"
-      },
+      "skins": { "title": "主题" },
       "optNum": {
         "title": "题目数量",
         "type": "string",
@@ -28,8 +26,8 @@
         "type": "number",
         "enum": [1, 2, 3, 4, 5, 6, 7, 8],
         "ui:options": {},
-        "ui:hidden": "{{rootValue.subject === 'chinese'}}",
-        "default": 1
+        "default": 1,
+        "hidden": "{{formData.subject === 'chinese'}}"
       },
       "shouldDisplayTimeMeter": {
         "title": "计时器",
@@ -47,17 +45,17 @@
           30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110,
           115, 120, 125, 130, 135, 140, 145, 150, 155, 160, 165, 170, 175, 180
         ],
-        "ui:hidden": "{{rootValue.shouldDisplayTimeMeter === 'false'}}",
-        "default": 30
+        "default": 30,
+        "hidden": "{{formData.shouldDisplayTimeMeter === 'false'}}"
       },
       "isAuxiliaryMode": {
         "title": "试错机会",
         "type": "string",
         "enum": ["false", "true"],
         "enumNames": ["0次", "无限次"],
-        "ui:hidden": "{{rootValue.subject !== 'math'}}",
         "ui:widget": "radio",
-        "default": "false"
+        "default": "false",
+        "hidden": "{{formData.subject !== 'math'}}"
       },
       "bgm": {
         "title": "背景音乐",
@@ -73,15 +71,12 @@
         ],
         "default": "",
         "ui:className": "listenAudioSymbol",
-        "ui:hidden": "{{rootValue.ifNeedListenAudio === 'true'}}",
-        "ui:options": {
-          "allowClear": true
-        }
+        "ui:options": { "allowClear": true },
+        "hidden": "{{formData.ifNeedListenAudio === 'true'}}"
       },
       "label": {
         "title": "标签",
         "type": "string",
-        "ui:hidden": "{{rootValue.subject !== 'english'}}",
         "ui:options": {
           "multiLine": false,
           "heightLimit": 51,
@@ -90,14 +85,13 @@
           "fontSize": "{{40}}",
           "exceedMsg": "标签超出范围！！！"
         },
-        "ui:widget": "editor"
+        "ui:widget": "editor",
+        "hidden": "{{formData.subject !== 'english'}}"
       },
       "subQuestion": {
         "type": "array",
         "ui:widget": "subQuestion",
-        "ui:options": {
-          "questionNum": "{{formData.optNum}}"
-        }
+        "ui:options": { "questionNum": "{{formData.optNum}}" }
       }
     }
   },
