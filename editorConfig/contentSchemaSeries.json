@@ -1,112 +1,165 @@
 {
-  "schema": {
-    "type": "object",
-    "ui:displayType": "row",
-    "ui:showDescIcon": true,
-    "required": ["label"],
-    "properties": {
-      "subject": {
-        "title": "学科",
-        "type": "string",
-        "enum": ["english", "math", "chinese"],
-        "enumNames": ["英语", "数学", "语文"],
-        "ui:widget": "radio",
-        "default": "english",
-        "hidden": "{{true}}"
-      },
-      "skins": { "title": "主题" },
-      "optNum": {
-        "title": "题目数量",
-        "type": "string",
-        "enum": ["3", "4", "5", "6", "7", "8"],
-        "default": "3"
-      },
-      "minRewardableCorrectCount": {
-        "title": "答对多少题可获得金币",
-        "type": "number",
-        "enum": [1, 2, 3, 4, 5, 6, 7, 8],
-        "ui:options": {},
-        "default": 1,
-        "hidden": "{{formData.subject === 'chinese'}}"
-      },
-      "shouldDisplayTimeMeter": {
-        "title": "计时器",
-        "type": "string",
-        "enum": ["true", "false"],
-        "enumNames": ["有", "无"],
-        "ui:widget": "radio",
-        "default": "true"
-      },
-      "timerMeterLength": {
-        "title": "计时时长",
-        "type": "number",
-        "ui:options": {},
-        "enum": [
-          30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110,
-          115, 120, 125, 130, 135, 140, 145, 150, 155, 160, 165, 170, 175, 180
-        ],
-        "default": 30,
-        "hidden": "{{formData.shouldDisplayTimeMeter === 'false'}}"
-      },
-      "isAuxiliaryMode": {
-        "title": "试错机会",
-        "type": "string",
-        "enum": ["false", "true"],
-        "enumNames": ["0次", "无限次"],
-        "ui:widget": "radio",
-        "default": "false",
-        "hidden": "{{formData.subject !== 'math'}}"
-      },
-      "bgm": {
-        "title": "背景音乐",
-        "type": "string",
-        "enum": ["bgm1", "bgm2", "bgm3", "bgm4", "bgm5", ""],
-        "enumNames": [
-          "背景音乐1",
-          "背景音乐2",
-          "背景音乐3",
-          "背景音乐4",
-          "背景音乐5",
-          "无"
-        ],
-        "default": "",
-        "ui:className": "listenAudioSymbol",
-        "ui:options": { "allowClear": true },
-        "hidden": "{{formData.ifNeedListenAudio === 'true'}}"
-      },
-      "label": {
-        "title": "标签",
-        "type": "string",
-        "ui:options": {
-          "multiLine": false,
-          "heightLimit": 51,
-          "widthLimit": 454,
-          "hideControl": true,
-          "fontSize": "{{40}}",
-          "exceedMsg": "标签超出范围！！！"
+    "schema": {
+      "type": "object",
+      "ui:displayType": "row",
+      "ui:showDescIcon": true,
+      "required": [
+        "label"
+      ],
+      "properties": {
+        "subject": {
+          "title": "学科",
+          "type": "string",
+          "enum": [
+            "english",
+            "math",
+            "chinese"
+          ],
+          "enumNames": [
+            "英语",
+            "数学",
+            "语文"
+          ],
+          "ui:widget": "radio",
+          "ui:hidden": "{{true}}",
+          "default": "english"
         },
-        "ui:widget": "editor",
-        "hidden": "{{formData.subject !== 'english'}}"
-      },
-      "subQuestion": {
-        "type": "array",
-        "ui:widget": "subQuestion",
-        "ui:options": { "questionNum": "{{formData.optNum}}" }
+        "skins": {
+          "title": "主题"
+        },
+        "optNum": {
+          "title": "题目数量",
+          "type": "string",
+          "enum": [
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "default": "3"
+        },
+        "minRewardableCorrectCount": {
+          "title": "答对多少题可获得金币",
+          "type": "number",
+          "enum": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "ui:options": {},
+          "ui:hidden": "{{rootValue.subject === 'chinese'}}",
+          "default": 1
+        },
+        "shouldDisplayTimeMeter": {
+          "title": "计时器",
+          "type": "string",
+          "enum": [
+            "true",
+            "false"
+          ],
+          "enumNames": [
+            "有",
+            "无"
+          ],
+          "ui:widget": "radio",
+          "default": "true"
+        },
+        "timerMeterLength": {
+          "title": "计时时长",
+          "type": "number",
+          "ui:options": {},
+          "enum": [
+            30,  35,  40,  45,  50,  55,  60,  65,
+            70,  75,  80,  85,  90,  95, 100, 105,
+           110, 115, 120, 125, 130, 135, 140, 145,
+           150, 155, 160, 165, 170, 175, 180
+         ],
+          "ui:hidden": "{{rootValue.shouldDisplayTimeMeter === 'false'}}",
+          "default": 30
+        },
+        "isAuxiliaryMode": {
+          "title": "试错机会",
+          "type": "string",
+          "enum": [
+            "false",
+            "true"
+          ],
+          "enumNames": [
+            "0次",
+            "无限次"
+          ],
+          "ui:hidden": "{{rootValue.subject !== 'math'}}",
+          "ui:widget": "radio",
+          "default": "false"
+        },
+        "bgm": {
+          "title": "背景音乐",
+          "type": "string",
+          "enum": [
+            "bgm1",
+            "bgm2",
+            "bgm3",
+            "bgm4",
+            "bgm5",
+            ""
+          ],
+          "enumNames": [
+            "背景音乐1",
+            "背景音乐2",
+            "背景音乐3",
+            "背景音乐4",
+            "背景音乐5",
+            "无"
+          ],
+          "default": "",
+          "ui:className": "listenAudioSymbol",
+          "ui:hidden": "{{rootValue.ifNeedListenAudio === 'true'}}",
+          "ui:options": {
+            "allowClear": true
+          }
+        },
+        "label": {
+          "title": "标签",
+          "type": "string",
+          "ui:hidden": "{{rootValue.subject !== 'english'}}",
+          "ui:options": {
+            "multiLine": false,
+            "heightLimit": 51,
+            "widthLimit": 454,
+            "hideControl": true,
+            "fontSize":"{{40}}",
+            "exceedMsg": "标签超出范围！！！"
+          },
+          "ui:widget": "editor"
+        },
+        "subQuestion": {
+          "type": "array",
+          "ui:widget": "subQuestion",
+          "ui:options": {
+            "questionNum": "{{formData.optNum}}"
+          }
+        }
       }
+    },
+    "displayType": "row",
+    "showDescIcon": true,
+    "affectSubSchemaKeys": ["bgm","subject"],
+    "formData": {
+      "subject": "english",
+      "bgm": "",
+      "label": "",
+      "shouldDisplayTimeMeter": "true",
+      "timerMeterLength": 30,
+      "minRewardableCorrectCount": 1,
+      "isAuxiliaryMode": "true",
+      "optNum": "3",
+      "subQuestion": []
     }
-  },
-  "displayType": "row",
-  "showDescIcon": true,
-  "affectSubSchemaKeys": ["bgm", "subject"],
-  "formData": {
-    "subject": "english",
-    "bgm": "",
-    "label": "",
-    "shouldDisplayTimeMeter": "true",
-    "timerMeterLength": 30,
-    "minRewardableCorrectCount": 1,
-    "isAuxiliaryMode": "true",
-    "optNum": "3",
-    "subQuestion": []
   }
-}
