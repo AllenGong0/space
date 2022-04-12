@@ -38,10 +38,10 @@ const addHidden = (schema, nowKey = 'root', parentHiddenStr = undefined, parentM
        }
 
         /** rootValue 更改为相应的 formData */
-        const newKey = getRoot(key, parentMap)
+        const newKey = getRoot(nowKey, parentMap)
         if(innerHiddenStr.includes('rootValue')){
             innerHiddenStr = innerHiddenStr.replaceAll('rootValue', newKey)
-            console.log(innerHiddenStr, schema.title, key)
+            console.log(innerHiddenStr, schema.title, nowKey)
         }
     }
 
@@ -88,6 +88,6 @@ addHidden(contentSchemaInfo.schema || contentSchemaInfo)
 subSchemaInfo && addHidden(subSchemaInfo)
 addHidden(seriesSchemaInfo.schema || seriesSchemaInfo)
 
-fs.writeFileSync(contentSchemaPath, JSON.stringify(contentSchemaInfo))
-fs.writeFileSync(subSchemaPath, JSON.stringify(subSchemaInfo))
-fs.writeFileSync(seriesSchemaPath, JSON.stringify(seriesSchemaInfo))
+fs.writeFileSync(contentSchemaPath, JSON.stringify(contentSchemaInfo, null,"\t"))
+fs.writeFileSync(subSchemaPath, JSON.stringify(subSchemaInfo, null,"\t"))
+fs.writeFileSync(seriesSchemaPath, JSON.stringify(seriesSchemaInfo, null,"\t"))
