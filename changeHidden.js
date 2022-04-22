@@ -90,4 +90,4 @@ addHidden(seriesSchemaInfo.schema || seriesSchemaInfo)
 
 fs.writeFileSync(contentSchemaPath, JSON.stringify(contentSchemaInfo, null,"\t"))
 fs.writeFileSync(subSchemaPath, JSON.stringify(subSchemaInfo, null,"\t"))
-fs.writeFileSync(seriesSchemaPath, JSON.stringify(seriesSchemaInfo, null,"\t"))
+fs.writeFileSync(seriesSchemaPath, JSON.stringify(seriesSchemaInfo))
