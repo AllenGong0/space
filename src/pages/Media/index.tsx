@@ -214,6 +214,12 @@ const EditableTable = () => {
           defaultPageSize: 15,
         }}
       />
+      <Input
+        type={"file"}
+        onChange={(e) => {
+          console.log(e.target.value, "e")
+        }}
+      ></Input>
       <Button onClick={save}>保存</Button>
     </div>
   )

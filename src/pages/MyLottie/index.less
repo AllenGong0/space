@@ -1,0 +1,84 @@
+.button_container {
+
+    .button3 {
+        position: relative;
+        width: 166px;
+        height:56px;
+        background-image: url('./clock-in.png');
+        // background-image: linear-gradient(to right, #ff3300 0%, #eb4402 25%, #ffc404 50%, #eb4402 75%, #ff3300 100%);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        border-radius: 27px;
+        // animation: zoomIn 1s infinite cubic-bezier(0.0, 0.0, 1.0, 1.0);
+        &::after{
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                    linear-gradient(to right, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 70%);
+            background-size: 200%;
+            background-repeat: no-repeat;
+            // background-position: -100% 0;
+            animation: wipes 3s infinite cubic-bezier(0.0, 0.0, 1.0, 1.0) reverse;
+            ;
+
+        }
+    }
+
+    .button3_inner {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        line-height: 46px;
+        // background-image: url('./img_1.png');
+        background-image: linear-gradient(to right, #ff3300 0%, #eb4402 25%, #ffc404 50%, #eb4402 75%, #ff3300 100%);
+        background-size: contain;
+        background-repeat: no-repeat;
+        color: #ffffff;
+        font-size: 18px;
+        border-radius: 27px;
+        background-size: 200% 100%;
+        text-align: center;
+        background-position: 200% 0;
+        // animation: colorGradient 3s linear infinite reverse;
+    }
+}
+.my-canvas {
+    border: 1px solid black;
+}
+.container{
+}
+
+@keyframes wipes {
+    0% {
+        background-position: -100% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes zoomIn {
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes colorGradient {
+    0% {
+        background-position: -100% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}

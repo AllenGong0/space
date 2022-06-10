@@ -603,6 +603,10 @@ module.exports = function (webpackEnv) {
             // Make sure to add the new loader(s) before the "file" loader.
           ],
         },
+        // {
+        //   test: /\.svga$/,
+        //   use: 'svga-loader',
+        // },
       ].filter(Boolean),
     },
     plugins: [

@@ -2,10 +2,12 @@
     "compilerOptions": {
       "jsx": "react-jsx",
       "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true
+      "esModuleInterop": true,
+      "resolveJsonModule": true,
     },
     "include": [
-        "src"
+        "src",
+        "index.d.ts"
       ],
     "exclude": ["node_modules", "lib", "es", "config"],
 }
