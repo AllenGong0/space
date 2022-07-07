@@ -26,7 +26,6 @@ const schema = {
       "options": {
         "title": "数组",
         "type": "array",
-        "widget": 'customArray',
         "hidden": true,
         "items": {
           "type": "object",
@@ -40,7 +39,8 @@ const schema = {
           }
         },
         "props": {
-          "hideAdd": "true"
+          "hideAdd": "true",
+          "prefix": "A"
         },
         "dependencies": ["optionsCount"],
         "displayType": "row",
@@ -87,7 +87,7 @@ const CustomForm = () => {
     }
     const [count] = useState(0)
     return <div>
-        <FormRender form={form} schema={schema as any} widgets={{customArray: ImmutableList, customInput: CustomInput}} />
+        <FormRender form={form} schema={schema as any} widgets={{customInput: CustomInput}} />
         <button onClick={onSubmit}>提交</button>
     </div>;
 }
