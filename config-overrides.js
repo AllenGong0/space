@@ -16,7 +16,8 @@ module.exports = {
     plugins: [new webpack.ProvidePlugin({
         process: 'process/browser',
         Buffer: ['buffer', 'Buffer']
-    })]
+    })],
+    ignoreWarnings: [/Failed to parse source map/]
 }
 
 console.log(new webpack.ProvidePlugin({
