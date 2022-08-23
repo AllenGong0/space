@@ -36,6 +36,9 @@ const react = require(require.resolve('react', { paths: [paths.appPath] }));
 
 const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 const useYarn = fs.existsSync(paths.yarnLockFile);
+const { merge } = require('webpack-merge');
+const overridesConfig = require('../config-overrides')
+
 const isInteractive = process.stdout.isTTY;
 
 // Warn and crash if required files are missing
@@ -79,7 +82,7 @@ checkBrowsers(paths.appPath, isInteractive)
       return;
     }
 
-    const config = configFactory('development');
+    const config = merge(configFactory('development'), overridesConfig);
     const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
     const appName = require(paths.appPackageJson).name;
 
